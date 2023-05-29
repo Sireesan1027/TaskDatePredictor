@@ -1,0 +1,6 @@
+<div
+  *ngIf="property?.invalid && (property?.dirty || property?.touched)"
+  class="text-danger"
+>
+  <div *ngIf="property?.errors?.['required']">Field is required.</div>
+</div>

@@ -1,0 +1,87 @@
+<form [formGroup]="taskForm" class="task-inputs" (ngSubmit)="onSubmit($event)">
+  <div class="end-date-container">
+    <div *ngIf="taskForm.get('endDate')?.value === null">
+      <p-skeleton width="10rem" height="2rem" styleClass="mb-2"></p-skeleton>
+    </div>
+    <div
+      class="p-2 bg-info text-white"
+      *ngIf="
+        taskForm.get('endDate')?.value !== null &&
+        taskForm.get('endDate')?.value !== ''
+      "
+    >
+      <h6>End date :{{ taskForm.get("endDate")?.value | date }}</h6>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-12 col-lg-4 col-md-4">
+      <h6 class="mb-0 pl-3 pb-2">Task Name</h6>
+      <input
+        type="text"
+        pInputTextarea
+        placeholder="Default"
+        [ngStyle]="{ width: '100%' }"
+        formControlName="taskName"
+      />
+      <span class="p-ml-2"></span>
+      <app-custom-error
+        [formGroup]="taskForm"
+        name="taskName"
+      ></app-custom-error>
+    </div>
+    <div class="col-sm-12 col-lg-4 col-md-4">
+      <h6 class="mb-0 pl-3 pb-2">Start Date</h6>
+      <p-calendar
+        formControlName="startDate"
+        class="calender-inpt"
+        [minDate]="minDate"
+        [showButtonBar]="true"
+        (ngModelChange)="omDateChange($event)"
+        [disabledDays]="disabledDays"
+        [showTime]="true"
+        [showSeconds]="true"
+      ></p-calendar>
+      <span class="p-ml-2"></span>
+      <app-custom-error
+        [formGroup]="taskForm"
+        name="startDate"
+      ></app-custom-error>
+    </div>
+    <div class="col-sm-12 col-lg-4 col-md-4">
+      <h6 class="mb-0 pl-3 pb-2">Assigned days</h6>
+      <input
+        type="number"
+        pInputTextarea
+        placeholder="Default"
+        [ngStyle]="{ width: '100%' }"
+        formControlName="noOfDays"
+        (ngModelChange)="omDaysChange($event)"
+      />
+      <span class="p-ml-2"></span>
+      <app-custom-error
+        [formGroup]="taskForm"
+        name="noOfDays"
+      ></app-custom-error>
+    </div>
+    <div class="col-sm-12 col-lg-12 col-md-12">
+      <h6 class="mb-0 pl-3 pb-2">Description</h6>
+      <p-editor
+        formControlName="description"
+        [style]="{ height: '320px' }"
+      ></p-editor>
+      <span class="p-ml-2"></span>
+      <app-custom-error
+        [formGroup]="taskForm"
+        name="description"
+      ></app-custom-error>
+    </div>
+  </div>
+  <div class="btn-container">
+    <p-button
+      label="Create Task"
+      styleClass="mb-2 mt-2"
+      type="submit"
+      [disabled]="!taskForm.valid"
+    ></p-button>
+  </div>
+</form>
