@@ -38,7 +38,7 @@ public class TaskServiceImpl implements TaskService {
         return taskRepository.save(taskData);
     }
 
-    private String removeParagraphTags(String input) {
+    public String removeParagraphTags(String input) {
         // Remove opening paragraph tag
         String output = input.replace("<p>", "");
         // Remove closing paragraph tag
